@@ -157,3 +157,31 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
     });
 }
+
+// Get the button and body elements
+const modeToggle = document.getElementById('modeToggle');
+const body = document.body;
+
+// Check if light mode or dark mode is saved in localStorage
+if (localStorage.getItem('mode') === 'light') {
+    body.classList.add('light-mode');
+    modeToggle.textContent = 'Dark Mode';
+} else {
+    body.classList.add('dark-mode');
+    modeToggle.textContent = 'Light Mode';
+}
+
+// Event listener to toggle between dark and light modes
+modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    body.classList.toggle('light-mode');
+
+    // Save the current mode to localStorage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('mode', 'dark');
+        modeToggle.textContent = 'Light Mode';
+    } else {
+        localStorage.setItem('mode', 'light');
+        modeToggle.textContent = 'Dark Mode';
+    }
+});
