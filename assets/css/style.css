@@ -1,3 +1,4 @@
+
 :root {
     --bg-gradient-onyx: linear-gradient(
             to bottom right,
@@ -1415,6 +1416,16 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 }
 
+.testimonials-avatar-box img {
+    width: 80px;
+    border-radius: 1rem;
+}
+
+.avatar{
+    border-radius: 1rem;
+    width: 80px;
+}
+
 
 
 
@@ -1584,7 +1595,15 @@ textarea.form-input::-webkit-resizer { display: none; }
         border-radius: 20px;
     }
 
-    .testimonials-avatar-box img { width: 80px; }
+    .testimonials-avatar-box img {
+        width: 80px;
+        border-radius: 1rem;
+    }
+
+    .avatar{
+        border-radius: 1rem;
+        width: 80px;
+    }
 
     .testimonials-item-title {
         margin-bottom: 10px;
@@ -1618,9 +1637,13 @@ textarea.form-input::-webkit-resizer { display: none; }
     .modal-avatar-box {
         border-radius: 18px;
         margin-bottom: 0;
+
     }
 
-    .modal-avatar-box img { width: 65px; }
+    .modal-avatar-box img {
+        width: 65px;
+        border-radius: 1rem;
+    }
 
     .modal-img-wrapper > img {
         display: block;
