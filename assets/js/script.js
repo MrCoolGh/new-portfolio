@@ -162,26 +162,40 @@ for (let i = 0; i < navigationLinks.length; i++) {
 const modeToggle = document.getElementById('modeToggle');
 const body = document.body;
 
-// Check if light mode or dark mode is saved in localStorage
-if (localStorage.getItem('mode') === 'light') {
-    body.classList.add('light-mode');
-    modeToggle.textContent = 'Dark Mode';
-} else {
-    body.classList.add('dark-mode');
-    modeToggle.textContent = 'Light Mode';
+// Function to apply the correct theme
+function applyTheme(savedMode) {
+    if (savedMode) {
+        // Apply the saved theme from localStorage
+        body.classList.toggle('dark-mode', savedMode === 'dark');
+        body.classList.toggle('light-mode', savedMode === 'light');
+        modeToggle.textContent = savedMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+    } else {
+        // Auto-detect system theme if no saved preference
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        body.classList.toggle('dark-mode', prefersDark);
+        body.classList.toggle('light-mode', !prefersDark);
+        modeToggle.textContent = prefersDark ? 'Light Mode' : 'Dark Mode';
+    }
 }
 
-// Event listener to toggle between dark and light modes
+// Check saved mode or apply system preference
+const savedMode = localStorage.getItem('mode');
+applyTheme(savedMode);
+
+// Listen for system theme changes and update in real-time (if no manual override)
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (!localStorage.getItem('mode')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+    }
+});
+
+// Event listener for manual toggle
 modeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     body.classList.toggle('light-mode');
 
-    // Save the current mode to localStorage
-    if (body.classList.contains('dark-mode')) {
-        localStorage.setItem('mode', 'dark');
-        modeToggle.textContent = 'Light Mode';
-    } else {
-        localStorage.setItem('mode', 'light');
-        modeToggle.textContent = 'Dark Mode';
-    }
+    // Save user preference
+    const newMode = body.classList.contains('dark-mode') ? 'dark' : 'light';
+    localStorage.setItem('mode', newMode);
+    modeToggle.textContent = newMode === 'dark' ? 'Light Mode' : 'Dark Mode';
 });
